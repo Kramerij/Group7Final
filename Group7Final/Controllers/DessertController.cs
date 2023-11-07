@@ -7,27 +7,70 @@ namespace Group7Final.Controllers
 {
     public class DessertController : Controller
     {
-        private List<Dessert> sweet;
-        public DessertController ()
+        private FinalContext context;
+
+        [HttpGet]
+        public ActionResult Create()
         {
-            sweet = new List<Dessert>();
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Create(Dessert model)
+        {
+            context.Desserts.Add(model);
+            context.SaveChanges();
+            ViewBag.Message = "Data Insert Successful";
+            return View();
+        }
+
+        public ActionResult Read(int? id)
+        {
+            if (id != null || id > 0)
             {
-                new Dessert()
-                { DessertId = 1, TeamMember = "Isabelle", DessertName = "Brownie Cheesecake", DessertType = "Cheesecake", DessertTemp = "Cold" };
-                new Dessert()
-                { DessertId = 2, TeamMember = "Lai", DessertName = "Dulce De Leche Cheesecake", DessertType = "Cheesecake", DessertTemp = "Cold" };
-                new Dessert()
-                { DessertId = 3, TeamMember = "Eli", DessertName = "Maple Eclair", DessertType = "Donut", DessertTemp = "Hot" };
-                new Dessert()
-                { DessertId = 4, TeamMember = "Danny", DessertName = "Mint Chocolate Chip Malt", DessertType = "Ice Cream", DessertTemp = "Cold" };
-                new Dessert()
-                { DessertId = 5, TeamMember = "Jack", DessertName = "Rock", DessertType = "Rock", DessertTemp = "Hot" };
+                return View(context.Desserts.Where(x => x.Id == id).FirstOrDefault());
             }
+            else
+            {
+                return View(context.Desserts.Take(5).FirstOrDefault());
+            }
+        }
+
+        [HttpGet]
+        public ActionResult Update(int id) 
+        { 
+            var data = context.Desserts.Where(x => x.Id == id).FirstOrDefault();
+            return View(data);
+        }
+
+        [HttpPost]
+        public ActionResult Update(Dessert Model)
+        {
+            var data = context.Desserts.Where(x => x.Id == Model.Id).FirstOrDefault();
+            if (data != null)
+            {
+                data.TeamMember = Model.TeamMember;
+                data.DessertName = Model.DessertName;
+                data.DessertType = Model.DessertType;  
+                data.DessertTemp = Model.DessertTemp;
+                context.SaveChanges();
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Delete(int id)
+        {
+            var data = context.Desserts.Where(x => x.Id == id).FirstOrDefault();
+            context.Desserts.Remove(data);
+            context.SaveChanges();
+            ViewBag.Message = "REcord Delete Successful";
+            return RedirectToAction("Index");
         }
 
         public IActionResult Index()
         {
-            return View(sweet);
+            return View();
         }
     }
 }

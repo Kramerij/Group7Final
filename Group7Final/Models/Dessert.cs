@@ -6,7 +6,7 @@ namespace Group7Final.Models
 {
     public class Dessert
     {
-        public int DessertId { get; set; }
+        public int Id { get; set; }
         public string? TeamMember { get; set; }
         public string? DessertName { get; set; }
         public string? DessertType { get; set; }
