@@ -7,7 +7,14 @@ namespace Group7Final.Controllers
 {
     public class DessertController : Controller
     {
-        private FinalContext context;
+        FinalContext ctx;
+        public DessertController(FinalContext context) { ctx = context; }
+
+        public IActionResult Index()
+        {
+            ViewData["Desserts"] = ctx.Desserts.ToList();
+            return View();
+        }
 
         [HttpGet]
         public ActionResult Create()
@@ -18,8 +25,8 @@ namespace Group7Final.Controllers
         [HttpPost]
         public ActionResult Create(Dessert model)
         {
-            context.Desserts.Add(model);
-            context.SaveChanges();
+            ctx.Desserts.Add(model);
+            ctx.SaveChanges();
             ViewBag.Message = "Data Insert Successful";
             return View();
         }
@@ -28,32 +35,32 @@ namespace Group7Final.Controllers
         {
             if (id != null || id > 0)
             {
-                return View(context.Desserts.Where(x => x.Id == id).FirstOrDefault());
+                return View(ctx.Desserts.Where(x => x.Id == id).FirstOrDefault());
             }
             else
             {
-                return View(context.Desserts.Take(5).FirstOrDefault());
+                return View(ctx.Desserts.Take(5).FirstOrDefault());
             }
         }
 
         [HttpGet]
-        public ActionResult Update(int id) 
-        { 
-            var data = context.Desserts.Where(x => x.Id == id).FirstOrDefault();
+        public ActionResult Update(int id)
+        {
+            var data = ctx.Desserts.Where(x => x.Id == id).FirstOrDefault();
             return View(data);
         }
 
         [HttpPost]
         public ActionResult Update(Dessert Model)
         {
-            var data = context.Desserts.Where(x => x.Id == Model.Id).FirstOrDefault();
+            var data = ctx.Desserts.Where(x => x.Id == Model.Id).FirstOrDefault();
             if (data != null)
             {
                 data.TeamMember = Model.TeamMember;
                 data.DessertName = Model.DessertName;
-                data.DessertType = Model.DessertType;  
+                data.DessertType = Model.DessertType;
                 data.DessertTemp = Model.DessertTemp;
-                context.SaveChanges();
+                ctx.SaveChanges();
             }
 
             return RedirectToAction("Index");
@@ -61,16 +68,11 @@ namespace Group7Final.Controllers
 
         public ActionResult Delete(int id)
         {
-            var data = context.Desserts.Where(x => x.Id == id).FirstOrDefault();
-            context.Desserts.Remove(data);
-            context.SaveChanges();
-            ViewBag.Message = "REcord Delete Successful";
+            var data = ctx.Desserts.Where(x => x.Id == id).FirstOrDefault();
+            ctx.Desserts.Remove(data);
+            ctx.SaveChanges();
+            ViewBag.Message = "Record Delete Successful";
             return RedirectToAction("Index");
-        }
-
-        public IActionResult Index()
-        {
-            return View();
         }
     }
 }
