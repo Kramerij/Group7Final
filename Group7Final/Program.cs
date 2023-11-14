@@ -2,6 +2,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddSwaggerDocument();
 
 var app = builder.Build();
 
@@ -23,5 +24,8 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.UseOpenApi();
+app.UseSwaggerUi3();
 
 app.Run();
