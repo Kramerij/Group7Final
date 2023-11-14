@@ -30,8 +30,31 @@ namespace Group7Final.Controllers
             return Ok(ctx.GetMovieById(id));
         }
         [HttpPost]
+        public IActionResult Post(Movie m)
+        {
+            var result = ctx.AddMovie(m);
+            if (result == null)
+            {
+                return StatusCode(500, "a movie with this ID already exists");
+            }
+            if (result == 0)
+            {
+                return StatusCode(500, "An error occured while processing your request");
+            }
+            return Ok();
+        }
 
         [HttpPut]
+        public IActionResult Put(Movie m)
+        {
+            var result = ctx.UpdateMovie(m);  
+
+            if (result == 0)
+            {
+                return StatusCode(500, "An error occured while processing your request");
+            }
+            return Ok();
+        }
 
         [HttpDelete("id")]
         [Route("api/delete")]
@@ -42,7 +65,7 @@ namespace Group7Final.Controllers
             {
                 return NotFound(id);
             }
-            var result = ctx.RemoveMovieById(id); //generate remove product
+            var result = ctx.RemoveMovieById(id); 
             if (result == 0)
             {
                 return StatusCode(500, "An error occured while processing your request");
