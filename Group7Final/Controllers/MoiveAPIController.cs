@@ -1,15 +1,21 @@
 ﻿using Group7Final.Data;
+using Group7Final.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Group7Final.Controllers
 {
-    public class MovieController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class MoiveAPIController : ControllerBase
     {
+        
         FinalContext ctx;
-        public MovieController(FinalContext context) { 
+        public MovieController(FinalContext context)
+        {
             ctx = context;
         }
+       
         [HttpGet]
 
         [HttpGet("id")]
@@ -19,9 +25,7 @@ namespace Group7Final.Controllers
         [HttpPut]
 
         [HttpDelete]
-        public IActionResult Index()
-        {
-            return View();
-        }
-    }
+
+    
+}
 }
