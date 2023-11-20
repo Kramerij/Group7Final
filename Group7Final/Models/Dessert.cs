@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
+//Lai Connelly
 namespace Group7Final.Models
 {
     public class Dessert

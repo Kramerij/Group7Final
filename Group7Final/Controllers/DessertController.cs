@@ -3,76 +3,75 @@ using Microsoft.AspNetCore.Mvc;
 using Group7Final.Models;
 using Microsoft.EntityFrameworkCore;
 
+//Lai Connelly
 namespace Group7Final.Controllers
 {
+    [ApiController]
+    [Route("api/[controller]")]
     public class DessertController : Controller
     {
-        FinalContext ctx;
-        public DessertController(FinalContext context) { ctx = context; }
-
-        public IActionResult Index()
+        IDessert ctx;
+        public DessertController(IDessert context)
         {
-            ViewData["Desserts"] = ctx.Desserts.ToList();
-            return View();
+            ctx = context;
         }
 
         [HttpGet]
-        public ActionResult Create()
+        [Route("api/getDesserts")]
+        public IActionResult Get()
         {
-            return View();
+            return Ok(ctx.GetAllDesserts());
+        }
+
+        [HttpGet("id")]
+        public IActionResult Get(int id)
+        {
+            return Ok(ctx.GetDessertById(id));
         }
 
         [HttpPost]
-        public ActionResult Create(Dessert model)
+        public IActionResult Post(Dessert d)
         {
-            ctx.Desserts.Add(model);
-            ctx.SaveChanges();
-            ViewBag.Message = "Data Insert Successful";
-            return View();
-        }
-
-        public ActionResult Read(int? id)
-        {
-            if (id != null || id > 0)
+            var ret = ctx.AddDessert(d);
+            if (ret == null)
             {
-                return View(ctx.Desserts.Where(x => x.Id == id).FirstOrDefault());
+                return StatusCode(500, "A Dessert with this Id already exists.");
             }
-            else
+            if (ret == 0)
             {
-                return View(ctx.Desserts.Take(5).FirstOrDefault());
+                return StatusCode(500, "An error occured while processing your request");
             }
+            return Ok();
         }
 
-        [HttpGet]
-        public ActionResult Update(int id)
+        [HttpPut]
+        public IActionResult Put(Dessert d)
         {
-            var data = ctx.Desserts.Where(x => x.Id == id).FirstOrDefault();
-            return View(data);
-        }
+            var ret = ctx.UpdateDessert(d);
 
-        [HttpPost]
-        public ActionResult Update(Dessert Model)
-        {
-            var data = ctx.Desserts.Where(x => x.Id == Model.Id).FirstOrDefault();
-            if (data != null)
+            if (ret == 0)
             {
-                data.TeamMember = Model.TeamMember;
-                data.DessertName = Model.DessertName;
-                data.DessertType = Model.DessertType;
-                data.DessertTemp = Model.DessertTemp;
-                ctx.SaveChanges();
+                return StatusCode(500, "An error occured while processing your request");
             }
-
-            return RedirectToAction("Index");
+            return Ok();
         }
 
-        public ActionResult Delete(int id)
+        [HttpDelete("id")]
+        [Route("api/delete")]
+        public IActionResult Delete(int id)
         {
-            var data = ctx.Desserts.Where(x => x.Id == id).FirstOrDefault();
-            ctx.Desserts.Remove(data);
-            ctx.SaveChanges();
-            ViewBag.Message = "Record Delete Successful";
-            return RedirectToAction("Index");
+            var dessert = ctx.GetDessertById(id);
+            if (dessert == null)
+            {
+                return NotFound(id);
+            }
+            var ret = ctx.RemoveDessertById(id);
+            if (ret == 0)
+            {
+                return StatusCode(500, "An error occured while processing your request");
+            }
+
+            return Ok();
         }
     }
 }

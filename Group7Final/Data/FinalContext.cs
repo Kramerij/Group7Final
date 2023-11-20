@@ -17,7 +17,7 @@ namespace Group7Final.Data
                 new Dessert { TeamMember = "Lai", DessertName = "Dulce De Leche Cheesecake", DessertType = "Cheesecake", DessertTemp = "Cold" },
                 new Dessert { TeamMember = "Eli", DessertName = "Maple Eclair", DessertType = "Donut", DessertTemp = "Hot" },
                 new Dessert { TeamMember = "Danny", DessertName = "Mint Chocolate Chip Malt", DessertType = "Ice Cream", DessertTemp = "Cold" },
-                new Dessert { TeamMember = "Jack", DessertName = "Rock", DessertType = "Rock", DessertTemp = "Hot" }
+                new Dessert { TeamMember = "Jack", DessertName = "Cookies n Cream Ice Cream", DessertType = "Ice Cream", DessertTemp = "Cold" }
             );
             modelBuilder.Entity<Movie>().HasData(
                 new Movie {TeamMember = "Eli", MovieName = "Perfect Blue", Director = "Satoshi Kon", ReleaseYear = 1197 },
