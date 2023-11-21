@@ -5,7 +5,7 @@ namespace Group7Final.Data
 {
     public class TeamContext : ITeamService
     {
-    
+        // Jacob Junker
        
             FinalContext ctx;
             public TeamContext(FinalContext context)

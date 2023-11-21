@@ -4,6 +4,8 @@ using Group7Final.Models;
 
 namespace Group7Final.Controllers
 {
+    // Jacob Junker
+
     [ApiController]
     [Route("api/[controller]")]
     public class TeamController : Controller
@@ -16,23 +18,24 @@ namespace Group7Final.Controllers
         }
 
         [HttpGet]
-        [Route("api/getteams")]
+        [Route("getTeam")]
         public IActionResult Get()
         {
             return Ok(ctx.GetAllTeams());
         }
-        [HttpGet("id")]
+        [HttpGet("getTeamByID")]
         public IActionResult Get(int id)
         {
             return Ok(ctx.GetTeamById(id));
         }
         [HttpPost]
+        [Route("AddTeam")]
         public IActionResult Post(Team t)
         {
             var result = ctx.AddTeam(t);
             if (result == null)
             {
-                return StatusCode(500, "a movie with this ID already exists");
+                return StatusCode(500, "a team member with this ID already exists");
             }
             if (result == 0)
             {
@@ -41,6 +44,7 @@ namespace Group7Final.Controllers
             return Ok();
         }
         [HttpPut]
+        [Route("updateTeam")]
         public IActionResult Put(Team t)
         {
             var result = ctx.UpdateTeam(t);
@@ -51,8 +55,8 @@ namespace Group7Final.Controllers
             }
             return Ok();
         }
-        [HttpDelete("id")]
-        [Route("api/delete")]
+        [HttpDelete]
+        [Route("DeleteTeam")]
         public IActionResult Delete(int id)
         {
             var product = ctx.GetTeamById(id);
