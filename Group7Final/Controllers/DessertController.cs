@@ -17,19 +17,21 @@ namespace Group7Final.Controllers
         }
 
         [HttpGet]
-        [Route("api/getDesserts")]
+        [Route("getDesserts")]
         public IActionResult Get()
         {
             return Ok(ctx.GetAllDesserts());
         }
 
-        [HttpGet("id")]
+        [HttpGet]
+        [Route("getDessertById")]
         public IActionResult Get(int id)
         {
             return Ok(ctx.GetDessertById(id));
         }
 
         [HttpPost]
+        [Route("addDessert")]
         public IActionResult Post(Dessert d)
         {
             var ret = ctx.AddDessert(d);
@@ -45,6 +47,7 @@ namespace Group7Final.Controllers
         }
 
         [HttpPut]
+        [Route("updateDessert")]
         public IActionResult Put(Dessert d)
         {
             var ret = ctx.UpdateDessert(d);
@@ -56,8 +59,8 @@ namespace Group7Final.Controllers
             return Ok();
         }
 
-        [HttpDelete("id")]
-        [Route("api/delete")]
+        [HttpDelete]
+        [Route("deleteDessert")]
         public IActionResult Delete(int id)
         {
             var dessert = ctx.GetDessertById(id);

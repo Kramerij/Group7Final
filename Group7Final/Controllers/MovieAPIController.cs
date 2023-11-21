@@ -18,18 +18,20 @@ namespace Group7Final.Controllers
 
 
         [HttpGet]
-        [Route("api/getmovies")]
+        [Route("getMovies")]
         public IActionResult Get()
         {
             return Ok(ctx.GetAllMovies());
         }
 
-        [HttpGet("id")]
+        [HttpGet]
+        [Route("getMovieById")]
         public IActionResult Get(int id)
         {
             return Ok(ctx.GetMovieById(id));
         }
         [HttpPost]
+        [Route("addMovie")]
         public IActionResult Post(Movie m)
         {
             var result = ctx.AddMovie(m);
@@ -45,6 +47,7 @@ namespace Group7Final.Controllers
         }
 
         [HttpPut]
+        [Route("updateMovie")]
         public IActionResult Put(Movie m)
         {
             var result = ctx.UpdateMovie(m);  
@@ -56,8 +59,8 @@ namespace Group7Final.Controllers
             return Ok();
         }
 
-        [HttpDelete("id")]
-        [Route("api/delete")]
+        [HttpDelete]
+        [Route("deleteMovie")]
         public IActionResult Delete(int id)
         {
             var product = ctx.GetMovieById(id);
