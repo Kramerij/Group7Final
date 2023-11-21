@@ -13,7 +13,7 @@ builder.Services.AddDbContext<FinalContext>(
 // Define Table Services Here
 builder.Services.AddScoped<IDessert, DessertContext>();
 builder.Services.AddScoped<IMovieService, MovieService>();
-
+builder.Services.AddScoped<ITeamService, TeamContext>();
 builder.Services.AddSwaggerDocument();
 
 var app = builder.Build();

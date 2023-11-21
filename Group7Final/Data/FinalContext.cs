@@ -9,6 +9,7 @@ namespace Group7Final.Data
         public DbSet<Dessert> Desserts { get; set; }
         public DbSet<Movie> Movies { get; set; }
 
+        public DbSet<Team> Teams { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -27,6 +28,14 @@ namespace Group7Final.Data
                 new Movie { Id = 3, TeamMember = "Isabelle", MovieName = "Legally Blande", Director = "Robert Luketic", ReleaseYear = 2001 },
                 new Movie { Id = 4, TeamMember = "Danny", MovieName = "Puss In Boots: The Last Wish", Director = "Joel Crawford", ReleaseYear = 2022 },
                 new Movie { Id = 5, TeamMember = "Jacob", MovieName = "Avengers: Endgame", Director = "The Russo Brothers", ReleaseYear = 2019 }
+                );
+            modelBuilder.Entity<Team>().HasData(
+                new Team { Id = 1, TeamMember = "Isabelle Kramer", Birthdate = 11 / 04 / 2003, ProgramName = "IT", YearName = "Pre Junior" },
+                 new Team { Id = 2, TeamMember = "Lai Connelly", Birthdate = 10 / 15 / 2003, ProgramName = "IT", YearName = "Sophomore" },
+                  new Team { Id = 3, TeamMember = "Eli Douglass", Birthdate = 12 / 26/ 2002, ProgramName = "IT", YearName = "Pre Junior" },
+                  new Team { Id = 4, TeamMember = "Danny Murray", Birthdate = 03 / 04 / 2004, ProgramName = "IT", YearName = "Sophomore" },
+                  new Team { Id = 5, TeamMember = "Jacob Junker", Birthdate = 03 / 24 / 2004, ProgramName = "IT", YearName = "Sophomore" }
+
                 );
         }
     }
