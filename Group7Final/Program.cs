@@ -10,6 +10,7 @@ builder.Services.AddDbContext<FinalContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("Database"))
 );
 
+// Define Table Services Here
 builder.Services.AddScoped<IDessert, DessertContext>();
 builder.Services.AddScoped<IMovieService, MovieService>();
 
