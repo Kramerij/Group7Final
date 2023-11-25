@@ -14,6 +14,7 @@ builder.Services.AddDbContext<FinalContext>(
 builder.Services.AddScoped<IDessert, DessertContext>();
 builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddScoped<ITeamService, TeamContext>();
+builder.Services.AddScoped<IVidGameService, VidGameService>();
 builder.Services.AddSwaggerDocument();
 
 var app = builder.Build();
