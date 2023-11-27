@@ -5,7 +5,7 @@ using Group7Final.Models;
 namespace Group7Final.Controllers
 {
 	[ApiController]
-	[Route("[controller]")]
+	[Route("api/[controller]")]
 	public class VidgameController : Controller
 	{
 		IVidGameService _context;
@@ -15,17 +15,19 @@ namespace Group7Final.Controllers
 		}
 
 		[HttpGet]
-		[Route("api/getproducts")]
+		[Route("getVideoGames")]
 		public IActionResult Get()
 		{
 			return Ok(_context.GetAllGames());
 		}
-		[HttpGet("id")]
+		[HttpGet]
+		[Route("getVideoGameById")]
 		public IActionResult Get(int id)
 		{
 			return Ok(_context.GetGameById(id));
 		}
 		[HttpPost]
+		[Route("createVideoGame")]
 		public IActionResult Post(Vidgame v)
 		{
 			var result = _context.AddGame(v);
@@ -40,6 +42,7 @@ namespace Group7Final.Controllers
 			return Ok();
 		}
 		[HttpPut]
+		[Route("updateVideoGame")]
 		public IActionResult Put(Vidgame v)
 		{
 			var result = _context.UpdateGame(v);
@@ -51,6 +54,7 @@ namespace Group7Final.Controllers
 		}
 
 		[HttpDelete]
+		[Route("deleteVideoGame")]
 		public IActionResult Delete(int id)
 		{
 			var product = _context.GetGameById(id);
